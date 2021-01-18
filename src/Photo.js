@@ -1,7 +1,11 @@
 import React from "react";
-import useWebAnimations, { zoomIn } from "@wellyshen/use-web-animations";
+import useWebAnimations, {
+  bounceInLeft,
+  bounceInRight,
+} from "@wellyshen/use-web-animations";
 
 const Photo = ({
+  index,
   urls: { regular },
   alt_description,
   likes,
@@ -11,17 +15,31 @@ const Photo = ({
     profile_image: { medium },
   },
 }) => {
-  const { keyframes, timing } = zoomIn;
-  const { ref } = useWebAnimations({
-    keyframes,
+  // Animation
+  const { ref: rightAnimation } = useWebAnimations({
+    ...bounceInRight,
     timing: {
-      ...timing,
-      duration: 1000,
+      duration: 4000,
     },
   });
 
+  const { ref: leftAnimation } = useWebAnimations({
+    ...bounceInLeft,
+    timing: {
+      duration: 4000,
+    },
+  });
+
+  // Animation Login Right and Left
+  let animation;
+
+  if (index % 2 === 0) {
+    animation = leftAnimation;
+  } else {
+    animation = rightAnimation;
+  }
   return (
-    <article className="photo" ref={ref}>
+    <article className="photo" ref={animation}>
       <img src={regular} alt={alt_description} />
       <div className="photo-info">
         <div>

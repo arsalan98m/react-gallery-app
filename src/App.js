@@ -54,7 +54,7 @@ function App() {
     const event = window.addEventListener("scroll", () => {
       if (
         !loading &&
-        window.innerHeight + window.scrollY >= document.body.scrollHeight - 2
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 10
       ) {
         setPage((oldPage) => {
           return oldPage + 1;
@@ -97,7 +97,7 @@ function App() {
       <section className="photos">
         <div className="photos-center">
           {photos.map((image, index) => {
-            return <Photo key={index} {...image} />;
+            return <Photo key={index} index={index} {...image} />;
           })}
         </div>
         {loading && <h2 className="loading">loading...</h2>}
